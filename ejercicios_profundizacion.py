@@ -12,10 +12,12 @@ adquiridos durante la semana
 '''
 
 __author__ = "Inove Coding School"
-__email__ = "alumnos@inove.com.ar"
-__version__ = "1.1"
+__email__ = "Patriciohenderson@hotmail.com"
+__version__ = "1.2"
 
 import numpy as np
+import random
+import math
 
 
 def ej1():
@@ -41,6 +43,26 @@ def ej1():
 
     Realizar este proceso iterativo hasta cumplir el objetivo
     '''
+    blackjack = [random.randrange(1,10) for x in range (3)  ]
+    
+    while np.sum(blackjack) > 21:
+        print("Pasaste 21, reintenta el juego")
+        blackjack = [random.randrange(1,10) for x in range (3)  ]
+
+    if 1 < np.sum(blackjack) <= 17:
+
+        print("La banca pide otra carta" , np.sum(blackjack) + [random.randrange(1,10) for x in range(1)])
+
+        while np.sum(blackjack) > 21:
+            print("Pasaste 21, reintenta el juego")
+            blackjack = [random.randrange(1,10) for x in range (3)  ]
+
+        if np.sum(blackjack) >=21:
+            print("La banca sumó" , np.sum(blackjack) )
+    
+    if 17 < np.sum(blackjack) <= 21:
+        print("La  Banca sumó " , np.sum(blackjack))
+    
 
 
 def ej2():
@@ -61,6 +83,8 @@ def ej2():
                'Alejandro', 'Leonel', 'Antonio', 'Omar', 'Antonia', 'Amalia',
                'Daniela', 'Sofia', 'Celeste', 'Ramon', 'Jorgelina', 'Anabela']
 
+    nombres_filtrados = [x for x in  nombres if x[0] in padron]
+    print(nombres_filtrados)
     # Se espera obtener:
     # ['Tamara', 'Juan', 'Alberto'......]
 
@@ -80,7 +104,8 @@ def ej3():
     # NO utilizar comprensión de listas, solo utilice la
     # funcion de numpy "np.sin"
 
-    # y_nump =
+    y_nump = np.sin(x)
+    print(y_nump)
 
     # Conjunto de valores "X" en una lista
     x = list(np.arange(0, 2*np.pi, 0.1))
@@ -89,7 +114,8 @@ def ej3():
     # "y_list" que tenga todos los valores obtenidos como resultado
     # de someter cada valor de "X" a la función math.sin
 
-    # y_list =
+    y_list = [math.sin(x) for x in x]
+    print(y_list)
 
     # Este es un ejemplo práctico de cuando es útil usar numpy,
     # basicamente siempre que deseen utilizar una función matemática
@@ -114,7 +140,7 @@ def ej4():
     lista_compra_id = [556070, 905045, 42135, 5674, 704060, 1264, 42135, 3654]
 
     # Crear una nueva lista "lista_compra_productos" que transforme la lista
-    # de realizada por "ID" de producto en lista por "nombre" producto
+    # realizada por "ID" de producto en lista por "nombre" producto
     # Iterar sobre la lista "lista_compra_id" para generar la nueva
     # En cada iteración acceder al diccionario para traducir el ID.
     # NOTA: Tener en cuenta que puede haber códigos (IDs) que
@@ -123,7 +149,9 @@ def ej4():
     # de condicionales PERO recomendamos leer atentamente el método "get"
     # de diccionarios que tiene un parametro configurable respecto
     # que sucede sino encuentra la "key" en el diccionario.
-
+    
+    lista_compra_productos = [{x:producto.get(x,"No esta en producto")} for x in lista_compra_id]
+    print(lista_compra_productos)
 
 def ej5():
     print("Ahora sí! buena suerte :)")
@@ -148,11 +176,62 @@ def ej5():
     más cercanos a 21 sin pasarse!
     '''
 
+    jugador_1 = np.sum([random.randrange(1,10) for x in range(2)])
+    
+    
+    if jugador_1 == 21 :
+        print("BlackJack")
+
+    while jugador_1 < 21:
+        print("Sumaste " , jugador_1 )
+        eleccion = int(input("Inserte 1 para sacar otra carta o 2 para pasar "))
+
+        if eleccion == 1 :
+            jugador_1 = jugador_1 + np.sum([random.randrange(1,10) for x in range(1)])
+        
+        if eleccion == 2 :
+            break
+    else:
+        print("sumaste " , jugador_1 , "Gana el jugador 2")
+
+
+    jugador_2 = np.sum([random.randrange(1,10) for x in range(2)])
+    
+    
+    if jugador_2 == 21 :
+        print("BlackJack")
+
+    while jugador_2 < 21:
+        print("Sumaste " , jugador_2 , "recorda que el jugador uno sumó" , jugador_1 )
+        eleccion = int(input("Inserte 1 para sacar otra carta o 2 para pasar "))
+
+        if eleccion == 1 :
+            jugador_2 = jugador_2 + np.sum([random.randrange(1,10) for x in range(1)])
+        
+        if eleccion == 2 :
+            break
+    else:
+        print("sumaste " , jugador_2 , "Gana el jugador 2")
+    
+    if jugador_1 > jugador_2:
+        print("El ganador es el jugador", jugador_1)
+    if jugador_1 < jugador_2:
+        print("El ganador es el jugador", jugador_2)
+
+    
+
+
+
+
+
+
+
+
 
 if __name__ == '__main__':
     print("Ejercicios de práctica")
-    # ej1()
-    # ej2()
-    # ej3()
-    # ej4()
-    # ej5()
+    #ej1()
+    #ej2()
+    #ej3()
+    #ej4()
+    ej5()
